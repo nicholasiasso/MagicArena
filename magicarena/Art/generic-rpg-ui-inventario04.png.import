@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gabe-idle-run.png-7add9077b6c6fb6892703255c30b6a81.stex"
+path="res://.import/generic-rpg-ui-inventario04.png-aabbc6a4f71f9ebadb05bccfacb992e3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gabe-idle-run.png"
-dest_files=[ "res://.import/gabe-idle-run.png-7add9077b6c6fb6892703255c30b6a81.stex" ]
+source_file="res://Art/generic-rpg-ui-inventario04.png"
+dest_files=[ "res://.import/generic-rpg-ui-inventario04.png-aabbc6a4f71f9ebadb05bccfacb992e3.stex" ]
 
 [params]
 
