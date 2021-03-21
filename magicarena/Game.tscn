@@ -8,7 +8,9 @@
 script = ExtResource( 1 )
 
 [node name="Wall" parent="." instance=ExtResource( 3 )]
-position = Vector2( 44.4601, 80.8813 )
+position = Vector2( 8.17351, 46.4488 )
 
 [node name="Mage" parent="." instance=ExtResource( 2 )]
 position = Vector2( 130, 84 )
+
+[editable path="Wall"]

@@ -1,12 +1,19 @@
 using Godot;
 using System;
 
-public class Mage : Node2D
+public class Mage : KinematicBody2D
 {
-    // Declare member variables here.
+    [Export]
+    float cursorMinDist = 30;
 
-    private int speed = 120;
-    private int cursorSpeed = 180;
+    [Export]
+    float cursorMaxDist = 40;
+
+    [Export]
+    float speed = 150;
+
+
+
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -15,54 +22,42 @@ public class Mage : Node2D
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
-        Vector2 dir = new Vector2();
+        AnimatedSprite animation = (AnimatedSprite) GetNode("AnimatedSprite");
+        Sprite cursor = (Sprite) GetNode("Cursor");
 
-        dir.x = Input.GetActionStrength("char_right") - Input.GetActionStrength("char_left");
-        dir.y = Input.GetActionStrength("char_down") - Input.GetActionStrength("char_up");
+        Vector2 movementDir = new Vector2();
+        movementDir.x = Input.GetActionStrength("char_right") - Input.GetActionStrength("char_left");
+        movementDir.y = Input.GetActionStrength("char_down") - Input.GetActionStrength("char_up");
+        movementDir.Clamped(1);
 
-        Vector2 cursorDir = new Vector2();
+        Vector2 aimingDir = new Vector2();
+        aimingDir.x = Input.GetActionStrength("cursor_right") - Input.GetActionStrength("cursor_left");
+        aimingDir.y = Input.GetActionStrength("cursor_down") - Input.GetActionStrength("cursor_up");
+        aimingDir.Clamped(1);
 
-        cursorDir.x = Input.GetActionStrength("cursor_right") - Input.GetActionStrength("cursor_left");
-        cursorDir.y = Input.GetActionStrength("cursor_down") - Input.GetActionStrength("cursor_up");
-
-        if (dir.Length() > 1) {
-            dir = dir.Normalized();
-        }
-
-        AnimatedSprite animation = (AnimatedSprite) GetNode("Body/AnimatedSprite");
-
-        //Determine Character's rotation
-        KinematicBody2D body = (KinematicBody2D) GetNode("Body");
-        KinematicBody2D cursor = (KinematicBody2D) GetNode("Cursor");
-
-        Vector2 diff = cursor.Position - body.Position;
-        float angle = diff.Angle();
-
-        bool flipLeft = (angle < -Math.PI/2 || angle > Math.PI/2);
-
-        animation.FlipH = flipLeft;
-
-        if (flipLeft) {
-            angle -= (float) Math.PI;
-        }
-
-        animation.Rotation = angle;
-
-        if (dir.Length() > 0) {
+        //Move character's body
+        this.MoveAndSlide(movementDir * speed, Vector2.Zero);
+        if (movementDir.Length() > 0)
+        {
             animation.Play();
         }
-        else {
+        else
+        {
             animation.Frame = 0;
-            animation.FlipV = false;
             animation.Stop();
         }
 
-        //Move character's body
-        body.MoveAndSlide(dir * speed, new Vector2());
-
         //Move cursor
-        cursor.MoveAndSlide(cursorDir * cursorSpeed, new Vector2());
+        if (aimingDir.Length() > 0.1)
+        {
+            cursor.Visible = true;
+            cursor.Position = aimingDir.Normalized() * (cursorMinDist + (aimingDir.Length() * (cursorMaxDist - cursorMinDist)));
+        }
+        else
+        {
+            cursor.Visible = false;
+        }
     }
 }
