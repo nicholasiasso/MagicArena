@@ -4,7 +4,7 @@
 [ext_resource path="res://Character/Mage.cs" type="Script" id=2]
 [ext_resource path="res://Art/generic-rpg-ui-inventario04.png" type="Texture" id=3]
 
-[sub_resource type="CapsuleShape2D" id=10]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 6.375
 height = 9.0
 
@@ -48,7 +48,7 @@ animations = [ {
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 10 )
+shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -0.595276, -1.28976 )
@@ -61,4 +61,5 @@ texture = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+process_mode = 0
 smoothing_enabled = true
