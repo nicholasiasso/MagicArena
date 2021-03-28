@@ -4,12 +4,11 @@
 extents = Vector2( 4, 15 )
 
 [node name="Wall" type="StaticBody2D"]
-collision_layer = 2147483651
-collision_mask = 3
+collision_layer = 2147483649
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 0.0470588, 0.0196078, 0.0196078, 1 )
-polygon = PoolVector2Array( -4.06947, -15.192, 4.05998, -15.0807, 4.11566, 15.0985, -4.06947, 14.9872 )
+polygon = PoolVector2Array( -4, -15, 4, -15, 4, 15, -4, 15 )
